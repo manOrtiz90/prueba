@@ -7,7 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:prueba": "node dist/prueba/server/server.mjs"
+    "build:ssr": "ng build && ng run prueba:server",
+    "serve:ssr": "node dist/prueba/server/server.mjs",
+    "start:prod": "node dist/prueba/server/server.mjs"
+
   },
   "private": true,
   "dependencies": {
