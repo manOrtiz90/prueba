@@ -1,0 +1,85 @@
+
+<app-notification
+  *ngIf="showNotification"
+  [message]="notificationMessage"
+  [type]="notificationType"
+></app-notification>
+<div *ngIf="!cardValide" class="relative p-6 bg-white rounded-xl shadow max-w-xl mx-auto mt-10 text-gray-700">
+  <div class="mb-6 flex items-start gap-3"  *ngIf="!user">
+    <svg class="size-6 text-indigo-600 mt-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h2 class="text-lg font-semibold text-gray-900">Verificación de Tarjeta</h2>
+      <p class="text-sm text-gray-600">Ingresa tu número de tarjeta para continuar con el proceso.</p>
+    </div>
+  </div>
+
+  <form *ngIf="!user" [formGroup]="card" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Número de tarjeta</label>
+      <div class="relative">
+        <svg class="absolute left-2 top-1/2 -translate-y-1/2 size-5 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-15A2.25 2.25 0 0 1 2.25 17.25V6.75zM2.25 9.75h19.5" />
+        </svg>
+        <p *ngIf="numberCard">Este es tu número colócalo en el input: {{ numberCard }}</p>
+        <input
+          formControlName="card"
+          type="text"
+          maxlength="18"
+          minlength="18"
+          placeholder="Ingresa tu tarjeta"
+          (keypress)="numberOnly($event)"
+          class="pl-10 pr-3 py-2 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+      <div *ngIf="card.get('card')?.invalid && card.get('card')?.touched" class="text-red-500 text-sm mt-1">
+        El número de tarjeta debe tener 18 caracteres.
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="card.get('card')?.invalid || loading"
+      class="w-full flex justify-center items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      <ng-container *ngIf="!loading; else spinner">Enviar</ng-container>
+      <ng-template #spinner>
+        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+      </ng-template>
+    </button>
+  </form>
+
+  <form *ngIf="user" [formGroup]="userForm" (ngSubmit)="onSubmitTwo()" class="max-w-md mx-auto mt-10 space-y-4 p-4 bg-white shadow-md rounded">
+    <h2 class="text-2xl font-bold mb-4">Crear Usuario</h2>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input formControlName="name" type="text" class="w-full p-2 border border-gray-300 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Apellido</label>
+      <input formControlName="lastName" type="text" class="w-full p-2 border border-gray-300 rounded" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Email</label>
+      <input formControlName="email" type="email" class="w-full p-2 border border-gray-300 rounded" />
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid"
+      class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed">
+      Crear Usuario
+    </button>
+  </form>
+
+
+  <p class="mt-6 text-sm text-gray-600">
+    Bienvenido al cajero automático. Ingresa tu número de tarjeta, asegúrate que tenga exactamente 18 caracteres y presiona "Enviar" para continuar con la operación.
+  </p>
+  <a (click)="formData()">Crea un usuario</a>
+</div>

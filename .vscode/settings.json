@@ -1,0 +1,9 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/62236c2e-218e-4874-8a1b-6d69c547e795/resourceGroups/prueba-df_group/providers/Microsoft.Web/sites/prueba-df",
+    "appService.deploySubpath": "dist\\challenge18-guard",
+    "appService.showBuildDuringDeployPrompt": false
+}

@@ -1,0 +1,19 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Main Tailwind file for injecting utilities.
+/* ----------------------------------------------------------------------------------------------------- */
+@tailwind utilities;
+
+body.dark .mat-primary .mat-option.mat-selected:not(.mat-option-disabled), body .dark .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #ffffff;
+}
+
+body.dark .mat-primary .mat-pseudo-checkbox-checked, body.dark .mat-primary .mat-pseudo-checkbox-indeterminate, body .dark .mat-primary .mat-pseudo-checkbox-checked, body .dark .mat-primary .mat-pseudo-checkbox-indeterminate {
+    background: #ECF8F9 !important;
+}
+body.light .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb, body .light .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+    background-color: #00BFB2;
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+    background-color: #B5E6E3 !important;
+}
